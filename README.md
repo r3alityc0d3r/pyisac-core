@@ -53,12 +53,12 @@ deployement
         {
             "type":"linux", 
             "servername":"lnx-server-1.billcloud.local", 
-            "location":"my datacenter", 
+            "location":"my datacenter"
         },
         {
             "type":"linux",
             "servername":"lnx-server-2.billcloud.local",
-            "location":"my datacenter",
+            "location":"my datacenter"
         }]
     }
     ```
