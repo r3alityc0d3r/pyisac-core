@@ -5,6 +5,7 @@ import sys
 import infrastructure
 import json
 import getopt
+import imp
 
 node_files = []
 nodes = []
@@ -44,18 +45,19 @@ def load_nodes():
         nodes = my_infrastructure.import_json(node_file)
     print "Found {0} Nodes".format(len(nodes))
 
-def report():
-    print "system,kernel version"
-    for node in nodes:
-        kernel_version = my_infrastructure.get_system_info(node.servername,"vagrant")
-        print "{0},{1}".format(node.servername,kernel_version)
-
 def run():
     banner()
     config_file = check_configuration()
     load_configuration(config_file)
     load_nodes()
     report()
+
+def deploy(script):
+    if not os.path.isfile(script):
+        print "Script Not found: {0}".format(script)
+    else:
+        print ""
+        execfile(script)
 
 def main(argv):
     global deploy_script
@@ -80,6 +82,7 @@ def main(argv):
     load_nodes()
     if deployment:
         print "Deploying Script: {0}".format(deploy_script)
+        deploy(deploy_script)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
