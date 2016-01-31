@@ -26,67 +26,67 @@ deployement
     vim /etc/pyisac/config/config.json
     ```
 
-with the following contents
+    with the following contents
 
-```
-{ "nodes_path": "/etc/pyisac/config/nodes"} 
-```
+    ```
+    { "nodes_path": "/etc/pyisac/config/nodes"} 
+    ```
 
-Where nodes_path is the path to your node definition files.  You will need
-to create this directory
+    Where nodes_path is the path to your node definition files.  You will need
+    to create this directory
 
-```
-mkdir /etc/pyisac/config/nodes
-```
+    ```
+    mkdir /etc/pyisac/config/nodes
+    ```
 
-3. Write json node information file
+3. Wirite json node information files
 
-```
-vim /etc/pyisac/config/nodes/systems.json
-```
+    ```
+    vim /etc/pyisac/config/nodes/systems.json
+    ```
 
-with the following contents substituting your node information:
+    with the following contents substituting your node information:
 
-```
-{
-    "systems":[
+    ```
     {
-        "type":"linux", 
-        "servername":"lnx-server-1", 
-        "location":"atc", 
-        "kernel":"4.3.3-300.fc23.x86_64"
-    },
-    {
-        "type":"linux",
-        "servername":"lnx-server-2",
-        "location":"atc",
-        "kernel":"4.3.3-300.fc23.x86_64"
-    }]
-}
-```
+        "systems":[
+        {
+            "type":"linux", 
+            "servername":"lnx-server-1", 
+            "location":"atc", 
+            "kernel":"4.3.3-300.fc23.x86_64"
+        },
+        {
+            "type":"linux",
+            "servername":"lnx-server-2",
+            "location":"atc",
+            "kernel":"4.3.3-300.fc23.x86_64"
+        }]
+    }
+    ```
 
 4. Create the pyisac service directory and copy everything there
 
-```
-mkdir /opt/pyisac
-cd /opt/pyisac
-git clone https://github.com/r3alityc0d3r/pyisac-core.git
-```
+    ```
+    mkdir /opt/pyisac
+    cd /opt/pyisac
+    git clone https://github.com/r3alityc0d3r/pyisac-core.git
+    ```
 
 5. Create the python virtualenv
 
-```
-sudo pip install virtualenv
-virtualenv venv
-source venv/bin/activate
-cd pyisac-core
-```
+    ```
+    sudo pip install virtualenv
+    virtualenv venv
+    source venv/bin/activate
+    cd pyisac-core
+    ```
 
 6. Run the pyisac command to start configuration
 
-```
-./pyisac.py
-```
+    ```
+    ./pyisac.py
+    ```
 
-At this point it really doesn't do much but list out the nodes in your
-configuration. More coming soon...
+    At this point it really doesn't do much but list out the nodes in your
+    configuration. More coming soon...
