@@ -1,6 +1,6 @@
 # PYISAC-CORE - PYthon InfraStructure As Code Core Server
 
-[![Build Status](https://travis-ci.org/r3alityc0d3r/pyisac.svg?branch=master)](https://travis-ci.org/r3alityc0d3r/pyisac)
+[![Build Status](https://travis-ci.org/r3alityc0d3r/pyisac-core.svg?branch=master)](https://travis-ci.org/r3alityc0d3r/pyisac-core)
 
 ## About
 
