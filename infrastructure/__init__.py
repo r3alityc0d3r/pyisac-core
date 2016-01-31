@@ -4,7 +4,12 @@ from core import *
 class Infrastructure(object):
     
     systems = []
-    
+   
+    def exec_command(self,host,username,command):
+        sshcmd = core.sshexec(host, username, command)
+        result = sshcmd.run()
+        return result[0]
+
     def get_system_info(self,host,username):
         command = "uname -r"
         sshcmd = core.sshexec(host, username, command)
