@@ -20,7 +20,7 @@ class Configuration(object):
                 x = servers.LinuxServer(
                         server["servername"],
                         server["location"],
-                        server["kernel"]
+                        server["username"]
                         )
                 x.show()
                 self.systems.append(x)
