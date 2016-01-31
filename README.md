@@ -13,4 +13,80 @@ This project is the core server that runs configurations and application
 deployement
 
 ## Installation
-Coming soon!
+
+1. Make a directory for configuration information
+
+```
+mkdir /etc/pyisac/config
+```
+
+2. Create a configuration file
+
+```
+vim /etc/pyisac/config/config.json
+```
+
+with the following contents
+
+```
+{ "nodes_path": "/etc/pyisac/config/nodes"} 
+```
+
+Where nodes_path is the path to your node definition files.  You will need
+to create this directory
+
+```
+mkdir /etc/pyisac/config/nodes
+```
+
+3. Write json node information file
+
+```
+vim /etc/pyisac/config/nodes/systems.json
+```
+
+with the following contents substituting your node information:
+
+```
+{
+    "systems":[
+    {
+        "type":"linux", 
+        "servername":"lnx-server-1", 
+        "location":"atc", 
+        "kernel":"4.3.3-300.fc23.x86_64"
+    },
+    {
+        "type":"linux",
+        "servername":"lnx-server-2",
+        "location":"atc",
+        "kernel":"4.3.3-300.fc23.x86_64"
+    }]
+}
+```
+
+4. Create the pyisac service directory and copy everything there
+
+```
+mkdir /opt/pyisac
+cd /opt/pyisac
+git clone https://github.com/r3alityc0d3r/pyisac-core.git
+```
+
+5. Create the python virtualenv
+
+```
+sudo pip install virtualenv
+virtualenv venv
+source venv/bin/activate
+cd pyisac-core
+```
+
+6. Run the pyisac command to start configuration
+
+```
+./pyisac.py
+```
+
+At this point it really doesn't do much but list out the nodes in your
+configuration. More coming soon...

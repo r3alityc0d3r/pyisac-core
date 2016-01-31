@@ -6,6 +6,7 @@ from infrastructure import *
 import json
 
 node_files = []
+nodes = []
 
 def banner():
     print "Python InfraStructure As Code - Open Source"
@@ -36,7 +37,8 @@ def load_nodes():
     my_infrastructure = Infrastructure()
     for node_file in node_files:
         print "Loading node configuration from {0}".format(node_file)
-        my_infrastructure.import_json(node_file)
+        nodes = my_infrastructure.import_json(node_file)
+    print "Found {0} Nodes".format(len(nodes))
 
 def run():
     banner()
