@@ -17,7 +17,7 @@ deployement
 1. Make a directory for configuration information
 
     ```
-    mkdir /etc/pyisac/config
+    mkdir -p /etc/pyisac/config
     ```
 
 2. Create a configuration file
@@ -37,9 +37,18 @@ deployement
 
     ```
     mkdir /etc/pyisac/config/nodes
+    mkdir /etc/pyisac/config/scripts
     ```
+3. Create pyisac group and add your user to it. Also change the permissions of the /etc/pyisac folder
 
-3. Wirite json node information files
+
+    ```
+    sudo groupadd pyisac
+    sudo usermod -a -G pyisac youruser
+    sudo chown root:pyisac /etc/pyisac/ -R
+    ```
+ 
+3. Write json node information files
 
     ```
     vim /etc/pyisac/config/nodes/systems.json

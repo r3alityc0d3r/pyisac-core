@@ -2,11 +2,15 @@
 
 import os
 import sys
-from infrastructure import *
+import infrastructure
 import json
+import getopt
 
 node_files = []
 nodes = []
+my_infrastructure = infrastructure.Infrastructure()
+deployment = False
+deploy_script = ""
 
 def banner():
     print "Python InfraStructure As Code - Open Source"
@@ -34,16 +38,48 @@ def check_configuration():
         return config_file
 
 def load_nodes():
-    my_infrastructure = Infrastructure()
+    global nodes
     for node_file in node_files:
         print "Loading node configuration from {0}".format(node_file)
         nodes = my_infrastructure.import_json(node_file)
     print "Found {0} Nodes".format(len(nodes))
+
+def report():
+    print "system,kernel version"
+    for node in nodes:
+        kernel_version = my_infrastructure.get_system_info(node.servername,"vagrant")
+        print "{0},{1}".format(node.servername,kernel_version)
 
 def run():
     banner()
     config_file = check_configuration()
     load_configuration(config_file)
     load_nodes()
+    report()
 
-run()
+def main(argv):
+    global deploy_script
+    global deployment
+
+    banner()
+    try:
+        opts, args = getopt.getopt(argv,"hd:",["deploy="])
+    except getopt.GetoptError:
+        print "pyisac.py --help"
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print "pyisac help file"
+            isys.exit(0)
+        if opt in ("-d", "--deploy"):
+            deploy_script = arg
+            deployment = True
+
+    config_file = check_configuration()
+    load_configuration(config_file)
+    load_nodes()
+    if deployment:
+        print "Deploying Script: {0}".format(deploy_script)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
