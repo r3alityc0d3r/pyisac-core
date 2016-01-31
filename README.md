@@ -16,15 +16,15 @@ deployement
 
 1. Make a directory for configuration information
 
-```
-mkdir /etc/pyisac/config
-```
+    ```
+    mkdir /etc/pyisac/config
+    ```
 
 2. Create a configuration file
 
-```
-vim /etc/pyisac/config/config.json
-```
+    ```
+    vim /etc/pyisac/config/config.json
+    ```
 
 with the following contents
 
