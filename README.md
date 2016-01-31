@@ -87,6 +87,20 @@ deployement
     ```
     ./pyisac.py
     ```
+    You should see some output
+
+    ```
+    Python InfraStructure As Code - Open Source
+    Released under the GPU v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+    loading environment configuration from /etc/pyisac/config/config.json
+    Found /etc/pyisac/config/nodes/systems.json
+    Found /etc/pyisac/config/nodes/systems2.json
+    Loading node configuration from /etc/pyisac/config/nodes/systems.json
+    Successfully Loaded Nodes
+    Loading node configuration from /etc/pyisac/config/nodes/systems2.json
+    Successfully Loaded Nodes
+    Found 4 Nodes
+    ```
 
     At this point it really doesn't do much but list out the nodes in your
     configuration. More coming soon...
