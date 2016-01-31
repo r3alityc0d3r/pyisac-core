@@ -102,3 +102,70 @@ deployement
 
     At this point it really doesn't do much but list out the nodes in your
     configuration. More coming soon...
+
+## Setup a test environment using vagrant
+
+This repository comes with a test environment for testing your code in 
+the test-nodes/ directory.  In order to get this to work you need to have
+already generated an ssh key and add it to the ssh-agent:
+
+```
+ssh-keygen -t rsa
+ssh-add ~/.ssh/id_rsa
+```
+
+Go to the test-nodes direstory and do a vagrant up.  Then login and get the ip
+address of the vagrant system:
+
+```
+cd test-nodes/
+vagrant up
+vagrant ssh
+
+vagrant@lnx-server-1:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
+    link/ether 08:00:27:88:0c:a6 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+    inet6 fe80::a00:27ff:fe88:ca6/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
+    link/ether 08:00:27:e4:83:77 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.127/24 brd 192.168.1.255 scope global eth1
+    inet6 fe80::a00:27ff:fee4:8377/64 scope link 
+       valid_lft forever preferred_lft forever
+vagrant@lnx-server-1:~$ exit
+```
+
+Next add the test system to your hosts file:
+
+```
+sudo vim /etc/hosts
+192.168.1.127 lnx-server-1.billcloud.local lnx-server-1
+```
+
+You should now be able to ssh to your test box directly:
+
+```
+ssh lnx-server-1.billcloud.local
+The authenticity of host 'lnx-server-1.billcloud.local (192.168.1.127)' can't be established.
+ECDSA key fingerprint is SHA256:
+ECDSA key fingerprint is MD5:
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'lnx-server-1.billcloud.local' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+New release '14.04.3 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+Welcome to your Vagrant-built virtual machine.
+Last login: Sun Jan 31 19:55:32 2016 from 192.168.1.112
+vagrant@lnx-server-1:~$
+```
+
+You are now ready to start testing pyisac!
