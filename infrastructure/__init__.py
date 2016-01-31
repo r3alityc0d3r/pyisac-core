@@ -10,7 +10,6 @@ class Infrastructure(object):
             x = servers.LinuxServer(
                     server["servername"],
                     server["location"],
-                    server["kernel"],
                     )
             self.systems.append(x)
         print "Successfully Loaded Nodes"

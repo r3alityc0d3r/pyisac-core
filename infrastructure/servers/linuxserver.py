@@ -12,10 +12,8 @@ __version__ = '0.1'
 
 class LinuxServer(BaseServer):
     """Linux Server Class"""
-    def __init__(self,servername,location,kernel):
+    def __init__(self,servername,location):
         BaseServer.__init__(self, servername, location)
-        self.kernel = kernel
 
     def show(self):
         BaseServer.show(self)
-        print "Kernel: %s" % self.kernel

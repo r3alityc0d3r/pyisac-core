@@ -52,15 +52,13 @@ deployement
         "systems":[
         {
             "type":"linux", 
-            "servername":"lnx-server-1", 
-            "location":"atc", 
-            "kernel":"4.3.3-300.fc23.x86_64"
+            "servername":"lnx-server-1.billcloud.local", 
+            "location":"my datacenter", 
         },
         {
             "type":"linux",
-            "servername":"lnx-server-2",
-            "location":"atc",
-            "kernel":"4.3.3-300.fc23.x86_64"
+            "servername":"lnx-server-2.billcloud.local",
+            "location":"my datacenter",
         }]
     }
     ```
