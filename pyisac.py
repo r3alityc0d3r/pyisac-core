@@ -3,6 +3,7 @@
 import os
 import sys
 import infrastructure
+import core
 import json
 import getopt
 import imp
@@ -13,6 +14,7 @@ class Main(object):
     node_files = []
     nodes = []
     my_infrastructure = infrastructure.Infrastructure()
+    my_core = core.Core()
     deployment = False
     deploy_script = ""
 
@@ -59,9 +61,9 @@ class Main(object):
             if opt in ("-h", "--help"):                                                
                print "pyisac help file"                                               
                sys.exit(0)                                                            
-            if opt in ("-d", "--deploy"):                                              
-                deploy_script = arg                                                    
-                deployment = True                                                       
+            if opt in ("-d", "--deploy"):
+                self.deploy_script = arg                                                    
+                self.deployment = True                                                       
                                                                                    
         self.config_file = self.check_configuration()                                            
         self.load_configuration(self.config_file)                                                
@@ -70,7 +72,7 @@ class Main(object):
            print "Deploying Script: {0}".format(self.deploy_script)                         
            self.deploy(self.deploy_script)
     
-    def deploy(script):
+    def deploy(self, script):
         if not os.path.isfile(script):
             print "Script Not found: {0}".format(script)
         else:
