@@ -4,12 +4,11 @@ from hamcrest import *
 
 @given(u'the user runs pyisac from the command line')
 def step_impl(context):
-    context.Main = Main()
+    context.main = Main()
 
 @when(u'no arguments are given')
 def step_impl(context):
-    pass
-    #context.Main.run("")
+    context.main.run("")
 
 @then(u'a banner should be shown')
 def step_impl(context):
