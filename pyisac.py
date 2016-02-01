@@ -2,8 +2,8 @@
 
 import os
 import sys
-import infrastructure
-import core
+from Pyisac.infrastructure import Infrastructure
+from Pyisac.core import Core
 import json
 import getopt
 import imp
@@ -13,8 +13,8 @@ class Main(object):
 
     node_files = []
     nodes = []
-    my_infrastructure = infrastructure.Infrastructure()
-    my_core = core.Core()
+    my_infrastructure = Infrastructure()
+    my_core = Core()
     deployment = False
     deploy_script = ""
 
