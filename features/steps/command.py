@@ -12,8 +12,8 @@ def step_impl(context):
 
 @then(u'a banner should be shown')
 def step_impl(context):
-    context.expected_banner = "Python InfraStructure As Code - Open Source"
     pass
+    #context.expected_banner = "Python InfraStructure As Code - Open Source"
     #assert_that(context.stdout_capture.getvalue(), contains_string(context.expected_banner))
 
 @then(u'the GPL license should be shown')
