@@ -39,4 +39,7 @@ class Configuration(object):
         moduleNames = listdir("/etc/pyisac/config/modules/")
         modules = map(__import__, moduleNames) 
         moduleNum = len(modules)
-        print "Imported {0} modules".format(moduleNum)
+        print "Imported {0} module(s) {1}".format(moduleNum,moduleNames)
+
+    def load_facts(self, node):
+        pass

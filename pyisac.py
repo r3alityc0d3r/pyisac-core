@@ -19,6 +19,7 @@ class Main(object):
     deploy_script = ""
     show_node = False
     verbose = False
+    agent_mode = False
     servers = []
 
     def __init__(self):
@@ -63,7 +64,7 @@ class Main(object):
     def run(self, argv):
         self.banner()
         try:
-            opts, args = getopt.getopt(argv,"hd:s:",["deploy=","show-node="])
+            opts, args = getopt.getopt(argv,"hd:s:a:",["deploy=","show-node=","agent="])
         except getopt.GetoptError:
             print "pyisac.py --help"
             sys.exit(2)
@@ -78,6 +79,9 @@ class Main(object):
             if opt in ("-s", "--show-node"):
                 self.show_node = True
                 self.node = arg
+            if opt in ("-a", "--agent"):
+                self.agent_mode = True
+                self.node = arg
 
         self.config_file = self.check_configuration()                                            
         self.load_configuration(self.config_file)                                                
@@ -88,7 +92,10 @@ class Main(object):
         if self.show_node:
             print "showing node {0}".format(self.node)
             self.do_show_node(self.node)
-    
+        if self.agent_mode:
+            print "====Working in agent mode===="
+            self.do_agent_mode(self.node)
+
     def deploy(self, script):
         if not os.path.isfile(script):
             print "Script Not found: {0}".format(script)
@@ -101,9 +108,12 @@ class Main(object):
         server = my_configuration.get_system(node)
         if server != 1:
             my_configuration.show_classes(server)
-            my_configuration.load_modules()
         else:
             print "System not found: {0}".format(node)
+
+    def do_agent_mode(self, node):
+        my_configuration = Configuration(self.nodes)
+        my_configuration.load_modules()
 
 def main():
     main = Main()
