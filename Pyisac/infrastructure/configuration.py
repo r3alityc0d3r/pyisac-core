@@ -18,8 +18,13 @@ class Configuration(object):
         self.my_servers = servers
 
     def show_classes(self, node):
-        if type(self.my_servers[0]).__name__ == "LinuxServer":
-            print "Classes: {0}".format(self.my_servers[0].classes)
+        print "classes:"
+        if type(node).__name__ == "LinuxServer":
+            if not type(node.classes).__name__ == "unicode":
+                for config_class in node.classes:
+                    print " - {0}".format(config_class)
+            else:
+                print " - {0}".format(node.classes)
 
     def get_system(self, fqdn):
         for server in self.my_servers:

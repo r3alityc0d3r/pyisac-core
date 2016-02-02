@@ -101,7 +101,7 @@ class Main(object):
         my_configuration = Configuration(self.nodes)
         server = my_configuration.get_system(node)
         if server != 1:
-            my_configuration.show_classes(node)
+            my_configuration.show_classes(server)
         else:
             print "System not found: {0}".format(node)
 
