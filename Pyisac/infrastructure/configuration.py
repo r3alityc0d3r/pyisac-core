@@ -10,17 +10,13 @@ __version__ = '0.1'
 
 class Configuration(object):
     """class to configure an infrastructure"""
-    def __init__(self,filename):
-        systems = []
 
-        my_servers = servers.load(filename)
-        print "Loading Infrastructure:"
-        for server in my_servers["systems"]:
-            if server["type"] == "linux":
-                x = servers.LinuxServer(
-                        server["servername"],
-                        server["location"],
-                        server["username"]
-                        )
-                x.show()
-                self.systems.append(x)
+    systems = []
+    my_servers = []
+
+    def __init__(self, servers):
+        self.my_servers = servers
+
+    def show_classes(self, node):
+        if type(self.my_servers[0]).__name__ == "LinuxServer":
+            print "Classes: {0}".format(self.my_servers[0].classes)
