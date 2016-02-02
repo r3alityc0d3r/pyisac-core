@@ -86,7 +86,7 @@ class Main(object):
             print "Deploying Script: {0}".format(self.deploy_script)                         
             self.deploy(self.deploy_script)
         if self.show_node:
-            print "showing niode {0}".format(self.node)
+            print "showing node {0}".format(self.node)
             self.do_show_node(self.node)
 
     
@@ -99,8 +99,12 @@ class Main(object):
 
     def do_show_node(self, node):
         my_configuration = Configuration(self.nodes)
-        node_config = my_configuration.show_classes(node)
-    
+        server = my_configuration.get_system(node)
+        if server != 1:
+            my_configuration.show_classes(node)
+        else:
+            print "System not found: {0}".format(node)
+
 def main():
     main = Main()
     try:

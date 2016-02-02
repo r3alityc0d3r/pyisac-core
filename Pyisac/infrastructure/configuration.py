@@ -20,3 +20,11 @@ class Configuration(object):
     def show_classes(self, node):
         if type(self.my_servers[0]).__name__ == "LinuxServer":
             print "Classes: {0}".format(self.my_servers[0].classes)
+
+    def get_system(self, fqdn):
+        for server in self.my_servers:
+            if server.servername == fqdn:
+                return server
+            else:
+                return 1
+
