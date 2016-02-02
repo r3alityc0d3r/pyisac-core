@@ -22,7 +22,7 @@ class Main(object):
     servers = []
 
     def __init__(self):
-        sys.path.append('/etc/pyisac/config/moidules/') #include user modules
+        sys.path.append('/etc/pyisac/config/modules') #include user modules
         sys.path.append('/etc/pyisac/config/')          #include user configuration
 
     def banner(self):
@@ -88,7 +88,6 @@ class Main(object):
         if self.show_node:
             print "showing node {0}".format(self.node)
             self.do_show_node(self.node)
-
     
     def deploy(self, script):
         if not os.path.isfile(script):
@@ -102,6 +101,7 @@ class Main(object):
         server = my_configuration.get_system(node)
         if server != 1:
             my_configuration.show_classes(server)
+            my_configuration.load_modules()
         else:
             print "System not found: {0}".format(node)
 

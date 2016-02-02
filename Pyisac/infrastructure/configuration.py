@@ -1,9 +1,9 @@
-#!/usr/bin/python
-
 """Class that does the initial configuration of an infrastructure
 
 This module loads the system configuration data
 """
+import imp
+import sys
 
 __author__ = 'Bill Ward'
 __version__ = '0.1'
@@ -33,3 +33,10 @@ class Configuration(object):
             else:
                 return 1
 
+    def load_modules(self):
+        from os import listdir
+        #sys.path.append('/etc/pyisac/config/modules') #include user modules 
+        moduleNames = listdir("/etc/pyisac/config/modules/")
+        modules = map(__import__, moduleNames) 
+        moduleNum = len(modules)
+        print "Imported {0} modules".format(moduleNum)
