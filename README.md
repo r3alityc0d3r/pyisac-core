@@ -55,7 +55,7 @@ same server.  Follow Mongo's documentation for installation instructions:
     sudo chown root:pyisac /etc/pyisac/ -R
     ```
  
-3. Write json node information files
+4. Write json node information files
 
     ```
     vim /etc/pyisac/config/nodes/systems.json
@@ -76,7 +76,7 @@ same server.  Follow Mongo's documentation for installation instructions:
     }
     ```
 
-4. Create the pyisac service directory and copy everything there
+5. Create the pyisac service directory and copy everything there
 
     ```
     mkdir /opt/pyisac
@@ -84,7 +84,7 @@ same server.  Follow Mongo's documentation for installation instructions:
     git clone https://github.com/r3alityc0d3r/pyisac-core.git
     ```
 
-5. Create the python virtualenv
+6. Create the python virtualenv
 
     ```
     sudo pip install virtualenv
@@ -92,7 +92,7 @@ same server.  Follow Mongo's documentation for installation instructions:
     source venv/bin/activate
     cd pyisac-core
     ```
-6. Install some modules
+7. Install some modules
 
     pyisac implements modules in order to extend its functionality.  Modules
     are installed in /etc/pyisac/config/modules.  Change directory to that
@@ -106,7 +106,7 @@ same server.  Follow Mongo's documentation for installation instructions:
     The example above installs the NTP module which gives pyisac the ability
     to manage NTP on your nodes.
 
-6. Run the pyisac command to start configuration
+8. Run the pyisac command to start configuration
 
     ```
     ./pyisac.py
