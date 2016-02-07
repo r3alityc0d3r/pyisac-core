@@ -92,6 +92,19 @@ same server.  Follow Mongo's documentation for installation instructions:
     source venv/bin/activate
     cd pyisac-core
     ```
+6. Install some modules
+
+    pyisac implements modules in order to extend its functionality.  Modules
+    are installed in /etc/pyisac/config/modules.  Change directory to that
+    directory and clone any modules
+
+    ```
+    cd /etc/pyisac/config/modules
+    git clone git@github.com:r3alityc0d3r/pyisac-ntp.git ntp
+    ```
+
+    The example above installs the NTP module which gives pyisac the ability
+    to manage NTP on your nodes.
 
 6. Run the pyisac command to start configuration
 
