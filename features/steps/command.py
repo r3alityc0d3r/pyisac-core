@@ -1,4 +1,4 @@
-from pyisac import Main
+from src.pyisac import Main
 from behave import *
 from hamcrest import *
 

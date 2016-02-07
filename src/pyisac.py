@@ -3,7 +3,7 @@
 import os
 import sys
 from Pyisac.infrastructure import Infrastructure, Profile, Configuration
-from Pyisac.core import Core
+from Pyisac.core import Core, Database
 import json
 import getopt
 import imp
@@ -25,6 +25,7 @@ class Main(object):
     def __init__(self):
         sys.path.append('/etc/pyisac/config/modules') #include user modules
         sys.path.append('/etc/pyisac/config/')          #include user configuration
+        self.node_config_db = Database()
 
     def banner(self):
         print "Python InfraStructure As Code - Open Source"

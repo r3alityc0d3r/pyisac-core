@@ -12,6 +12,13 @@ configuration management but also a simple way of deploying applications.
 This project is the core server that runs configurations and application
 deployement
 
+## Requirements
+
+Pyisac stores node configuration information in a mongo database located on the
+same server.  Follow Mongo's documentation for installation instructions:
+
+[MongoDB Installation Instructions](https://docs.mongodb.org/manual/administration/install-on-linux/)
+
 ## Installation
 
 1. Make a directory for configuration information
