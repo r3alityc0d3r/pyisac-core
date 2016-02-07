@@ -2,8 +2,8 @@
 
 import os
 import sys
-from Pyisac.infrastructure import Infrastructure
-from Pyisac.core import Core
+from Pyisac.infrastructure import Infrastructure, Profile, Configuration
+from Pyisac.core import Core, Database
 import json
 import getopt
 import imp
@@ -17,6 +17,15 @@ class Main(object):
     my_core = Core()
     deployment = False
     deploy_script = ""
+    show_node = False
+    verbose = False
+    agent_mode = False
+    servers = []
+
+    def __init__(self):
+        sys.path.append('/etc/pyisac/config/modules') #include user modules
+        sys.path.append('/etc/pyisac/config/')          #include user configuration
+        self.node_config_db = Database()
 
     def banner(self):
         print "Python InfraStructure As Code - Open Source"
@@ -30,7 +39,8 @@ class Main(object):
             for file in files:                                                     
                 if file.endswith(".json"):                                         
                     node_file = os.path.join(root,file)                            
-                    print "Found {0}".format(node_file)                            
+                    if self.verbose:
+                        print "Found {0}".format(node_file)                            
                     self.node_files.append(node_file)                                   
     
     def check_configuration(self):
@@ -39,20 +49,23 @@ class Main(object):
         if not os.path.isfile("/etc/pyisac/config/config.json"):
             sys.exit("ERROR: Configuration File not found /etc/pyisac/config/config.json")
         else:
-            print("loading environment configuration from /etc/pyisac/config/config.json")
+            if self.verbose:
+                print("loading environment configuration from /etc/pyisac/config/config.json")
             config_file = "/etc/pyisac/config/config.json"
             return config_file
     
     def load_nodes(self):
         for node_file in self.node_files:
-            print "Loading node configuration from {0}".format(node_file)
+            if self.verbose:
+                print "Loading node configuration from {0}".format(node_file)
             self.nodes = self.my_infrastructure.import_json(node_file)
-        print "Found {0} Nodes".format(len(self.nodes))
+        if self.verbose:
+            print "Found {0} Nodes".format(len(self.nodes))
     
     def run(self, argv):
         self.banner()
         try:
-            opts, args = getopt.getopt(argv,"hd:",["deploy="])
+            opts, args = getopt.getopt(argv,"hd:s:a:",["deploy=","show-node=","agent="])
         except getopt.GetoptError:
             print "pyisac.py --help"
             sys.exit(2)
@@ -63,22 +76,46 @@ class Main(object):
                sys.exit(0)                                                            
             if opt in ("-d", "--deploy"):
                 self.deploy_script = arg                                                    
-                self.deployment = True                                                       
-                                                                                   
+                self.deployment = True     
+            if opt in ("-s", "--show-node"):
+                self.show_node = True
+                self.node = arg
+            if opt in ("-a", "--agent"):
+                self.agent_mode = True
+                self.node = arg
+
         self.config_file = self.check_configuration()                                            
         self.load_configuration(self.config_file)                                                
         self.load_nodes()                                                                   
         if self.deployment:                                                                 
-           print "Deploying Script: {0}".format(self.deploy_script)                         
-           self.deploy(self.deploy_script)
-    
+            print "Deploying Script: {0}".format(self.deploy_script)                         
+            self.deploy(self.deploy_script)
+        if self.show_node:
+            print "showing node {0}".format(self.node)
+            self.do_show_node(self.node)
+        if self.agent_mode:
+            print "====Working in agent mode===="
+            self.do_agent_mode(self.node)
+
     def deploy(self, script):
         if not os.path.isfile(script):
             print "Script Not found: {0}".format(script)
         else:
             print ""
             execfile(script)
-    
+
+    def do_show_node(self, node):
+        my_configuration = Configuration(self.nodes)
+        server = my_configuration.get_system(node)
+        if server != 1:
+            my_configuration.show_classes(server)
+        else:
+            print "System not found: {0}".format(node)
+
+    def do_agent_mode(self, node):
+        my_configuration = Configuration(self.nodes)
+        my_configuration.load_modules()
+
 def main():
     main = Main()
     try:
