@@ -19,4 +19,21 @@ class Core(object):
         """
         sshcmd = sshexec(host, username, command)
         result = sshcmd.run()
-        return result[0]
+        return result[0].rstrip()
+
+    def get_node_facts(self, host, username):
+        facts = {}
+        kernel_version = self.exec_command(host, username, "uname -r")
+        facts["kernel_version"] = kernel_version
+        arch = self.exec_command(host, username, "uname -m")
+        facts["arch"] = arch
+        redhat_test = self.exec_command(host, username, "cat /etc/redhat-release")
+        distro = "Unknown"
+        if "no such file" not in redhat_test:
+            distro = "RedHat"
+        ubuntu_test = self.exec_command(host, username, "cat /etc/lsb-release | grep Ubuntu")
+        if "Ubuntu" in ubuntu_test:
+            distro = "Ubuntu"
+        facts["distro"] = distro
+
+        return facts
