@@ -61,11 +61,33 @@ class Main(object):
             self.nodes = self.my_infrastructure.import_json(node_file)
         if self.verbose:
             print "Found {0} Nodes".format(len(self.nodes))
-    
+
+    def store_nodes(self):
+        for node in self.nodes:
+            cursor = self.node_config_db.nodefacts_collection.find({"node": node.servername})
+            if cursor.count() == 0: 
+                result = self.node_config_db.nodefacts_collection.insert_one(node.to_json())
+                node.ref_id = result.inserted_id
+            else:
+                for document in cursor:
+                    node.ref_id = document["_id"]
+                print "Database synchronized..."
+   
+    def get_node_facts(self):
+        print "Updating node facts..."
+        for node in self.nodes:
+            node.facts = self.my_core.get_node_facts(node.servername, node.username)
+            result = self.node_config_db.nodefacts_collection.update_one(
+                    { "node": node.servername},
+                        {"$set": {"facts": node.facts}
+                    })
+            print "Updated" 
+                        
+
     def run(self, argv):
         self.banner()
         try:
-            opts, args = getopt.getopt(argv,"hd:s:a:",["deploy=","show-node=","agent="])
+            opts, args = getopt.getopt(argv,"hd:s:a",["deploy=","show-node=","agent"])
         except getopt.GetoptError:
             print "pyisac.py --help"
             sys.exit(2)
@@ -109,12 +131,16 @@ class Main(object):
         server = my_configuration.get_system(node)
         if server != 1:
             my_configuration.show_classes(server)
+            print
+            self.store_nodes()
         else:
             print "System not found: {0}".format(node)
 
     def do_agent_mode(self, node):
         my_configuration = Configuration(self.nodes)
         my_configuration.load_modules()
+        self.store_nodes()
+        self.get_node_facts()
 
 def main():
     main = Main()

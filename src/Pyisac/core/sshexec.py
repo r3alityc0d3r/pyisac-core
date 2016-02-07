@@ -33,7 +33,7 @@ class sshexec(object):
                 stderr=subprocess.PIPE)
         result = ssh.stdout.readlines()
         if result == []:
-            error = "ERROR: " + ssh.stderr.readlines()
+            error = ssh.stderr.readlines()
             return error
         else:
             return result
