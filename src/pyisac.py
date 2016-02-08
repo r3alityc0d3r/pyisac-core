@@ -116,8 +116,15 @@ class Main(object):
             print "showing node {0}".format(self.node)
             self.do_show_node(self.node)
         if self.agent_mode:
+            self.my_configuration = Configuration(self.nodes)
+            self.my_configuration.load_modules()
+            self.store_nodes()
+            self.get_node_facts()
+            print
             print "====Working in agent mode===="
             for node in self.nodes:
+                print
+                print "Applying configurion to {0}".format(node.servername)
                 self.do_agent_mode(node)
 
     def deploy(self, script):
@@ -139,16 +146,11 @@ class Main(object):
 
     def do_agent_mode(self, node):
         self.pyisac_modules = {}
-        my_configuration = Configuration(self.nodes)
-        my_configuration.load_modules()
-        self.store_nodes()
-        self.get_node_facts()
-        modules = my_configuration.modules
+        modules = self.my_configuration.modules
         for module in modules:
-            print
-            print "Applying configuration to {0}".format(node.servername)
-            klass = getattr(module, module.__name__.title())
-            self.pyisac_modules[module.__name__] = klass(node)
+            if module.__name__ in node.classes:
+                klass = getattr(module, module.__name__.title())
+                self.pyisac_modules[module.__name__] = klass(node)
 
 def main():
     main = Main()

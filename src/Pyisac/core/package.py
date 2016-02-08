@@ -11,7 +11,7 @@ class Package(object):
         if self.os_type == "Redhat":
             self.provider = "dnf install "
         elif self.os_type == "Ubuntu":
-            self.provider = "apt-get install "
+            self.provider = "sudo apt-get install -y "
         self.name = name
         self.action = action
         self.remediate_package()
@@ -22,7 +22,8 @@ class Package(object):
             if version:
                 print "Package {0} already installed [{1}]. Skipping".format(self.name, version)
             else:
-                print "Installing package {0}...".format(self.name)
+                print "Package {0} not install.  Installing".format(self.name)
+                self.install()
 
     def current(self):
         if self.os_type == "Ubuntu":
@@ -37,3 +38,9 @@ class Package(object):
             else:
                 result = result[0].split(' ')[-1]
                 return result.rstrip()
+
+    def install(self):
+        if self.os_type == "Ubuntu":
+            command = self.provider + self.name
+            cmd = sshexec(self.node.servername, self.node.username, command)
+            result = cmd.run()
