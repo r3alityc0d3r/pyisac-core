@@ -37,8 +37,8 @@ class Configuration(object):
         from os import listdir
         #sys.path.append('/etc/pyisac/config/modules') #include user modules 
         moduleNames = listdir("/etc/pyisac/config/modules/")
-        modules = map(__import__, moduleNames) 
-        moduleNum = len(modules)
+        self.modules = map(__import__, moduleNames) 
+        moduleNum = len(self.modules)
         print "Imported {0} module(s) {1}".format(moduleNum,moduleNames)
 
     def load_facts(self, node):

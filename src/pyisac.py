@@ -3,7 +3,7 @@
 import os
 import sys
 from Pyisac.infrastructure import Infrastructure, Profile, Configuration
-from Pyisac.core import Core, Database
+from Pyisac.core import Core, Database, Package
 import json
 import getopt
 import imp
@@ -117,7 +117,8 @@ class Main(object):
             self.do_show_node(self.node)
         if self.agent_mode:
             print "====Working in agent mode===="
-            self.do_agent_mode(self.node)
+            for node in self.nodes:
+                self.do_agent_mode(node)
 
     def deploy(self, script):
         if not os.path.isfile(script):
@@ -137,10 +138,17 @@ class Main(object):
             print "System not found: {0}".format(node)
 
     def do_agent_mode(self, node):
+        self.pyisac_modules = {}
         my_configuration = Configuration(self.nodes)
         my_configuration.load_modules()
         self.store_nodes()
         self.get_node_facts()
+        modules = my_configuration.modules
+        for module in modules:
+            print
+            print "Applying configuration to {0}".format(node.servername)
+            klass = getattr(module, module.__name__.title())
+            self.pyisac_modules[module.__name__] = klass(node)
 
 def main():
     main = Main()
