@@ -70,7 +70,8 @@ same server.  Follow Mongo's documentation for installation instructions:
             "type":"linux", 
             "servername":"lnx-server-1.billcloud.local", 
             "location":"my datacenter",
-            "username":"vagrant"
+            "username":"vagrant",
+            "classes":["ntp","apache2"]
         }
         ]
     }
