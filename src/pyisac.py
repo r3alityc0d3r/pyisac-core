@@ -155,6 +155,7 @@ class Main(object):
 def main():
     main = Main()
     try:
+        print sys.argv
         main.run(sys.argv[1:])
     except SystemExit as e:
         if e.code != 0:
