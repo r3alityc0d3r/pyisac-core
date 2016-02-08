@@ -4,7 +4,9 @@ from hamcrest import *
 
 @given(u'the user runs pyisac from the command line')
 def step_impl(context):
+    args = {}
     context.main = Main()
+    context.main.run(args)
 
 @when(u'no arguments are given')
 def step_impl(context):
