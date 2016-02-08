@@ -5,10 +5,8 @@ Feature: Command Statup
 
     Scenario: startup with no arguments
         Given the user runs pyisac from the command line
-        When no arguments are given
         Then a banner should be shown
 
     Scenario: startup with no arguments
         Given the user runs pyisac from the command line
-        When no arguments are given
         Then the GPL license should be shown
