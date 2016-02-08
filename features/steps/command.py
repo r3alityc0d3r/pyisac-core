@@ -4,7 +4,7 @@ from hamcrest import *
 
 @given(u'the user runs pyisac from the command line')
 def step_impl(context):
-    args = ['src/pyisac.py']
+    args = ['src/pyisac.py', '--agent']
     context.main = Main()
     context.main.run(args)
 
