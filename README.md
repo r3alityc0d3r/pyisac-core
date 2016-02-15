@@ -2,6 +2,11 @@
 
 [![Build Status](https://travis-ci.org/r3alityc0d3r/pyisac-core.svg?branch=master)](https://travis-ci.org/r3alityc0d3r/pyisac-core)
 
+#### Table of Contents
+1. [About](#about)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+
 ## About
 
 This project will hopefully be a new way to think about configuration management
