@@ -6,7 +6,9 @@
 1. [About](#about)
 2. [Requirements](#requirements)
 3. [Installation](#installation)
-4. [Setup a test environment using vagrant](#Setup-a-test-environment-using-vagrant)
+4. [Setup a test environment using vagrant](#setup-a-test-environment-using-vagrant)
+
+
 ## About
 
 This project will hopefully be a new way to think about configuration management
